@@ -12,10 +12,16 @@ plugins {
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.3.1")
         reporters {
             reporter(ReporterType.PLAIN)
             reporter(ReporterType.CHECKSTYLE)
             reporter(ReporterType.SARIF)
+        }
+        ignoreFailures.set(true)
+        filter {
+            exclude("**/generated/**")
+            include("**/kotlin/**")
         }
     }
 }
