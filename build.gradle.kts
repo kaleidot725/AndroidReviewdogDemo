@@ -1,17 +1,17 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.android.library) apply false
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1" apply false
-    id("io.gitlab.arturbosch.detekt") version "1.23.6"
+    id("io.gitlab.arturbosch.detekt") version "1.23.6" apply false
 }
 
-subprojects {
+allprojects {
     // Ktlint
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
@@ -27,15 +27,24 @@ subprojects {
             include("**/kotlin/**")
         }
     }
-}
 
-detekt {
-    toolVersion = "1.23.6"
-    buildUponDefaultConfig = true
-    basePath = projectDir.toString()
-    ignoreFailures = true
-    parallel = true
-    autoCorrect = false
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+
+    tasks.withType<Detekt>().configureEach {
+        buildUponDefaultConfig = true
+        ignoreFailures = true
+        parallel = true
+        autoCorrect = false
+
+        reports {
+            xml.required = true
+            html.required = true
+            txt.required = true
+            sarif.required = true
+            md.required = true
+        }
+        basePath = rootDir.absolutePath
+    }
 }
 
 tasks.withType<Detekt>().configureEach {
