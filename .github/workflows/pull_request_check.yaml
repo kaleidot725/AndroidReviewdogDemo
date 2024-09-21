@@ -20,9 +20,6 @@ jobs:
           distribution: 'corretto'
           java-version: 17
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
       - name: Setup reviewdog
         uses: reviewdog/action-setup@v1
         with:
@@ -39,13 +36,13 @@ jobs:
            cat "$file_path" | reviewdog -reporter=github-pr-review -f=sarif -level=info
           done
 
-#      - name: ktlint
-#        run: ./gradlew ktlintCheck
-#
-#      - name: Run reviewdog for Ktlint
-#        env:
-#          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEW_DOG }}
-#        run: |
-#          find . -regex '^.*/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.sarif' -type f | while read file_path; do
-#           cat "$file_path" | reviewdog -reporter=github-pr-review -f=sarif -level=info
-#          done
+      - name: ktlint
+        run: ./gradlew ktlintCheck
+
+      - name: Run reviewdog for Ktlint
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEW_DOG }}
+        run: |
+          find . -regex '^.*/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.sarif' -type f | while read file_path; do
+           cat "$file_path" | reviewdog -reporter=github-pr-review -f=sarif -level=info
+          done
