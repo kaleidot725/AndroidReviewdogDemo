@@ -23,7 +23,7 @@ jobs:
       - name: Setup reviewdog
         uses: reviewdog/action-setup@v1
         with:
-          reviewdog_version: latest
+          reviewdog_version: v0.18.1
 
       - name: detekt
         run: ./gradlew detekt
