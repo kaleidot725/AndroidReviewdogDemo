@@ -44,5 +44,5 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEW_DOG }}
         run: |
           find . -regex '^.*/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.sarif' -type f | while read file_path; do
-           cat "$file_path" | reviewdog -reporter=github-pr-review -f=sarif -level=info
+           cat "$file_path" | reviewdog -reporter=github-pr-check -f=sarif -level=info
           done
