@@ -28,24 +28,24 @@ jobs:
         with:
           reviewdog_version: latest
 
-#      - name: detekt
-#        run: ./gradlew detekt
-#
-#      - name: Run reviewdog for Detekt
-#        env:
-#          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEW_DOG }}
-#        run: |
-#          find . -regex '^.*/build/reports/detekt/detekt.sarif' -type f | while read file_path; do
-#           cat "$file_path" | reviewdog -reporter=github-pr-review -f=sarif -level=info
-#          done
+      - name: detekt
+        run: ./gradlew detekt
 
-      - name: ktlint
-        run: ./gradlew ktlintCheck
-
-      - name: Run reviewdog for Ktlint
+      - name: Run reviewdog for Detekt
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEW_DOG }}
         run: |
-          find . -regex '^.*/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.sarif' -type f | while read file_path; do
+          find . -regex '^.*/build/reports/detekt/detekt.sarif' -type f | while read file_path; do
            cat "$file_path" | reviewdog -reporter=github-pr-review -f=sarif -level=info
           done
+
+#      - name: ktlint
+#        run: ./gradlew ktlintCheck
+#
+#      - name: Run reviewdog for Ktlint
+#        env:
+#          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEW_DOG }}
+#        run: |
+#          find . -regex '^.*/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.sarif' -type f | while read file_path; do
+#           cat "$file_path" | reviewdog -reporter=github-pr-review -f=sarif -level=info
+#          done
