@@ -1,9 +1,3 @@
 package com.example.library
 
-class LibraryClass {
-
-
-
-
-
-}
+class LibraryClass

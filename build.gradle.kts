@@ -1,5 +1,4 @@
 import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
