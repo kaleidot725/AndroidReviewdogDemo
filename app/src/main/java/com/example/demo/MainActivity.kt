@@ -15,13 +15,6 @@ import com.example.demo.ui.theme.DemoTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
-
-
-
-
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -42,6 +35,11 @@ fun Greeting(
     name: String,
     modifier: Modifier = Modifier,
 ) {
+
+
+
+
+
     Text(
         text = "Hello $name!",
         modifier = modifier,
